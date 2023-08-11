@@ -124,7 +124,7 @@ if __name__ == '__main__':
     ,min_transacoes
     ,max_transacoes
     ,SQRT(SUM((count-media_transacoes)*(count-media_transacoes))/(n-1)) AS std_deviation
-    ,media_transacoes + CASE WHEN 1*SQRT(SUM((count-media_transacoes)*(count-media_transacoes))/(n-1)) IS NULL THEN 0 ELSE 1*SQRT(SUM((count-media_transacoes)*(count-media_transacoes))/(n-1)) END AS media_plus_n_std_deviation
+    ,media_transacoes + CASE WHEN 3*SQRT(SUM((count-media_transacoes)*(count-media_transacoes))/(n-1)) IS NULL THEN 0 ELSE 3*SQRT(SUM((count-media_transacoes)*(count-media_transacoes))/(n-1)) END AS media_plus_n_std_deviation
     FROM transacoes
     JOIN media
     ON substr(time, 1, 4) || 
@@ -163,7 +163,7 @@ if __name__ == '__main__':
     pd_to_sqlDB(threshold,
                 table_name='threshold',
                 db_name='default.db')
-
+    print(threshold)
     tabela_monitoramento = pd.DataFrame(columns=['time', 'status', 'count'])
 
     pd_to_sqlDB(tabela_monitoramento,
